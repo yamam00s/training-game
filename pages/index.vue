@@ -1,8 +1,6 @@
 <template>
   <div class="container">
-    <TgCharacter>
-      <img src="/image/marimo.png" width="106px" height="106px" />
-    </TgCharacter>
+    <TgCharacter />
   </div>
 </template>
 
