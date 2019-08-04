@@ -5,7 +5,11 @@ module.exports = {
     node: true
   },
   parserOptions: {
-    parser: 'babel-eslint'
+    ecmaVersion: true,
+    parser: "@typescript-eslint/parser",
+    ecmaFeatures: {
+      legacyDecorators: true
+    }
   },
   extends: [
     '@nuxtjs',
@@ -15,9 +19,12 @@ module.exports = {
     'plugin:nuxt/recommended'
   ],
   plugins: [
+    'vue',
+    '@typescript-eslint',
     'prettier'
   ],
   // add your custom rules here
   rules: {
+    // '@typescript-eslint/no-unused-vars': 'error'
   }
 }
