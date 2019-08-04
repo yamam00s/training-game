@@ -24,14 +24,16 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
 import Logo from '~/components/Logo.vue'
 
-export default {
+@Component({
   components: {
     Logo
   }
-}
+})
+export default class App extends Vue {}
 </script>
 
 <style>
