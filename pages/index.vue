@@ -1,19 +1,36 @@
 <template>
   <div class="container">
-    <TgCharacter />
+    <TgCharacter :is-live="isLive" />
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
+import { Getter, Mutation } from 'vuex-class'
 import TgCharacter from '~/components/atoms/TgCharacter.vue'
+
+const sleep = (sec): Promise<number> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve()
+    }, sec)
+  })
+}
 
 @Component({
   components: {
     TgCharacter
   }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  @Mutation('setLive') setLive
+  @Getter('isLive') isLive
+
+  async mounted() {
+    await sleep(10000)
+    this.setLive(false)
+  }
+}
 </script>
 
 <style>
