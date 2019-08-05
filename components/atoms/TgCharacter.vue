@@ -1,10 +1,17 @@
 <template>
   <div>
     <img
+      v-show="isLive"
       src="/image/marimo.png"
       :width="width"
       :height="height"
       class="isFloat"
+    />
+    <img
+      v-show="!isLive"
+      src="/image/marimo_yokan.png"
+      :width="width"
+      :height="height"
     />
   </div>
 </template>
@@ -19,20 +26,23 @@ export default class TgCharacter extends Vue {
 
   @Prop({ default: '100px' })
   height!: string
+
+  @Prop({ default: true })
+  isLive!: boolean
 }
 </script>
 
 <style>
 .isFloat {
-  animation: img_box_9955 10s linear infinite;
+  animation: flot 3s linear infinite;
 }
 
-@keyframes img_box_9955 {
+@keyframes flot {
   0% {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-50px);
+    transform: translateY(-30px);
   }
   100% {
     transform: translateY(0);
