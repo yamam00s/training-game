@@ -1,12 +1,12 @@
-import { RootState, IndexState } from '~/types'
 import { MutationTree, GetterTree } from 'vuex'
+import { RootState, IndexState } from '~/types'
 
 export const state = (): IndexState => ({
-  isLive: true,
+  isLive: true
 })
 
 export const getters: GetterTree<IndexState, RootState> = {
-  isLive: state => state.isLive,
+  isLive: (state) => state.isLive
 }
 
 export const mutations: MutationTree<IndexState> = {
