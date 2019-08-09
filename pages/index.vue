@@ -1,13 +1,15 @@
 <template>
-  <div class="container">
-    <tg-button>button</tg-button>
-    <tg-character :is-live="isLive" />
-    <tg-balloon>
-      <p>
-        aaaa
-      </p>
-    </tg-balloon>
-  </div>
+  <tg-background>
+    <div class="container">
+      <tg-button>button</tg-button>
+      <tg-character :is-live="isLive" />
+      <tg-balloon>
+        <p>
+          aaaa
+        </p>
+      </tg-balloon>
+    </div>
+  </tg-background>
 </template>
 
 <script lang="ts">
@@ -16,12 +18,14 @@ import { Getter, Mutation } from 'vuex-class'
 import TgCharacter from '~/components/atoms/character/TgCharacter.vue'
 import TgBalloon from '~/components/atoms/balloon/TgBalloon.vue'
 import TgButton from '~/components/atoms/button/TgButton.vue'
+import TgBackground from '~/components/atoms/background/TgBackground.vue'
 
 @Component({
   components: {
     TgCharacter,
     TgBalloon,
-    TgButton
+    TgButton,
+    TgBackground
   }
 })
 export default class App extends Vue {
@@ -33,13 +37,10 @@ export default class App extends Vue {
 <style>
 .container {
   width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  min-height: 100vh;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  background: url('/image/bg.png') center center no-repeat;
 }
 </style>
