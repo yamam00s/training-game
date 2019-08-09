@@ -1,17 +1,10 @@
 <template>
   <div>
     <img
-      v-show="isLive"
       src="/image/marimo.png"
       :width="width"
       :height="height"
       class="isFloat"
-    />
-    <img
-      v-show="!isLive"
-      src="/image/marimo_yokan.png"
-      :width="width"
-      :height="height"
     />
   </div>
 </template>
