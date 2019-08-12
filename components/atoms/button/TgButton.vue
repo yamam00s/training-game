@@ -3,7 +3,7 @@
     :is="tag"
     :type="nativeType"
     class="button"
-    :class="size"
+    :class="(size, color)"
     @click="$emit('click', $event)"
   >
     <slot />
@@ -19,6 +19,10 @@ export default class TgButton extends Vue {
   tag!: 'button' | 'span' | 'a'
   @Prop({ default: 'button' })
   nativeType!: 'button' | 'submit' | 'reset'
+  @Prop({ default: 'medium' })
+  size!: string
+  @Prop({ default: 'monokuro' })
+  color!: string
 }
 </script>
 
@@ -28,22 +32,32 @@ export default class TgButton extends Vue {
   line-height: 1.5;
   padding: calc(0.375em - 1px) 0.75em;
   text-align: center;
-  color: #363636;
-  border: 1px solid #dbdbdb;
+  border: 1px solid;
   border-radius: 4px;
   box-shadow: none;
   font-size: 1.6rem;
   cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    opacity: 0.7;
+  }
 }
 
-.is-small {
+.monokuro {
+  color: #fff;
+  border: 1px solid #fff;
+  background: #000;
+}
+
+.small {
   border-radius: 2px;
   font-size: 1.4rem;
 }
-.is-medium {
+.medium {
   font-size: 1.8rem;
 }
-.is-large {
+.large {
   font-size: 2rem;
 }
 </style>
