@@ -1,5 +1,5 @@
 <template>
-  <div class="contents">
+  <div class="contents monokuro">
     <nuxt />
   </div>
 </template>
@@ -24,6 +24,14 @@ html {
   width: 100%;
   height: 100vh;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.monokuro {
+  background: #000;
+  color: #fff;
 }
 
 *,
