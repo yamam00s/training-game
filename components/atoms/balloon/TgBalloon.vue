@@ -30,7 +30,7 @@ export default class TgBalloon extends Vue {}
     top: -30px;
     left: 10%;
     border: 15px solid transparent;
-    border-bottom: 15px solid #fff;
+    border-bottom: 15px solid $white;
   }
 }
 </style>

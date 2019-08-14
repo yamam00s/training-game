@@ -45,9 +45,9 @@ export default class TgButton extends Vue {
 }
 
 .monokuro {
-  color: #fff;
-  border: 1px solid #fff;
-  background: #000;
+  color: $white;
+  border: 1px solid $white;
+  background: $black;
 }
 
 .small {

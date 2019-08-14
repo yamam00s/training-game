@@ -19,8 +19,8 @@ export default class TgBox extends Vue {}
   justify-content: center;
   align-items: center;
   border-radius: 50px;
-  border: 10px double #000;
-  background: #fff;
+  border: 10px double $black;
+  background: $white;
   text-align: center;
 }
 </style>
