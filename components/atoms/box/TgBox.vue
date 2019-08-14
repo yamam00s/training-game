@@ -15,9 +15,7 @@ export default class TgBox extends Vue {}
 .box {
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flexCenter;
   border-radius: 50px;
   border: 10px double $black;
   background: $white;
