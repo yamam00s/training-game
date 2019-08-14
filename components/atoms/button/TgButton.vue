@@ -4,7 +4,7 @@
     :type="nativeType"
     class="button"
     :class="(size, color)"
-    @click="$emit('click', $event)"
+    @click="$emit('button-click', $event)"
   >
     <slot />
   </component>
@@ -41,6 +41,10 @@ export default class TgButton extends Vue {
 
   &:hover {
     opacity: 0.3;
+  }
+
+  &:active {
+    opacity: 1;
   }
 }
 
