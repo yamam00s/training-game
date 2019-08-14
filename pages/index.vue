@@ -1,14 +1,12 @@
 <template>
   <div>
-    <tg-header title="ただのまりも" @button-click-1="buttonClick"></tg-header>
+    <tg-header :title="result.name" @button-click-1="buttonClick"></tg-header>
     <div class="container">
       <tg-box>
-        <tg-character :is-live="isLive" />
+        <tg-character />
       </tg-box>
       <tg-balloon>
-        <p>
-          aaaa
-        </p>
+        <p>{{ result.description }}</p>
       </tg-balloon>
     </div>
   </div>
@@ -16,7 +14,8 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import { Getter, Mutation } from 'vuex-class'
+// import { Getter, Mutation } from 'vuex-class'
+import stubData from '~/static/stub/characterData.js'
 import TgCharacter from '~/components/atoms/character/TgCharacter.vue'
 import TgBalloon from '~/components/atoms/balloon/TgBalloon.vue'
 import TgBox from '~/components/atoms/box/TgBox.vue'
@@ -31,11 +30,18 @@ import TgHeader from '~/components/organisms/header/TgHeader.vue'
   }
 })
 export default class App extends Vue {
-  @Mutation('setLive') setLive
-  @Getter('isLive') isLive
+  // @Mutation('')
+  // @Getter('')
+
+  result: CharacterData = stubData[0]
 
   private buttonClick() {
     console.log('aa')
+  }
+
+  async created() {
+    const result = await stubData[0]
+    console.log(result)
   }
 }
 </script>

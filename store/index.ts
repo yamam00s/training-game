@@ -2,15 +2,15 @@ import { MutationTree, GetterTree } from 'vuex'
 import { RootState, IndexState } from '~/types'
 
 export const state = (): IndexState => ({
-  isLive: true
+  currentIndex: 0
 })
 
 export const getters: GetterTree<IndexState, RootState> = {
-  isLive: (state) => state.isLive
+  currentIndex: (state) => state.currentIndex
 }
 
 export const mutations: MutationTree<IndexState> = {
-  setLive(state: IndexState, isLive: boolean): void {
-    state.isLive = isLive
+  setCurrentIndex(state: IndexState, currentIndex: number): void {
+    state.currentIndex = currentIndex
   }
 }

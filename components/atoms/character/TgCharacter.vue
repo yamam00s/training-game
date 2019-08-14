@@ -19,9 +19,6 @@ export default class TgCharacter extends Vue {
 
   @Prop({ default: '100px' })
   height!: string
-
-  @Prop({ default: true })
-  isLive!: boolean
 }
 </script>
 
