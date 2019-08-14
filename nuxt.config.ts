@@ -38,7 +38,10 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/pwa'],
+  modules: ['@nuxtjs/pwa', '@nuxtjs/style-resources'],
+  styleResources: {
+    scss: ['~/assets/sass/variable.scss', '~/assets/sass/mixin.scss']
+  },
   /*
    ** Build configuration
    */
