@@ -40,7 +40,7 @@ export default class TgButton extends Vue {
   transition: all 0.3s;
 
   &:hover {
-    opacity: 0.7;
+    opacity: 0.3;
   }
 }
 
