@@ -2,6 +2,7 @@ export interface RootState {}
 
 export interface IndexState {
   currentIndex: number
+  characters: CharacterData[]
 }
 
 export interface CharacterData {

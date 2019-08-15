@@ -1,12 +1,16 @@
 <template>
   <div>
-    <tg-header :title="result.name" @button-click-1="buttonClick"></tg-header>
+    <tg-header
+      :title="currenData.name"
+      @button-click-1="buttonClick1"
+      @button-click-2="buttonClick2"
+    ></tg-header>
     <div class="container">
       <tg-box>
-        <tg-character />
+        <tg-character :name="currenData.image" />
       </tg-box>
       <tg-balloon>
-        <p>{{ result.description }}</p>
+        <p>{{ currenData.description }}</p>
       </tg-balloon>
     </div>
   </div>
@@ -14,7 +18,8 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-// import { Getter, Mutation } from 'vuex-class'
+import { Getter, Mutation } from 'vuex-class'
+import { CharacterData } from '~/types/index'
 import stubData from '~/static/stub/characterData.js'
 import TgCharacter from '~/components/atoms/character/TgCharacter.vue'
 import TgBalloon from '~/components/atoms/balloon/TgBalloon.vue'
@@ -30,18 +35,24 @@ import TgHeader from '~/components/organisms/header/TgHeader.vue'
   }
 })
 export default class App extends Vue {
-  // @Mutation('')
-  // @Getter('')
+  @Mutation('setCurrentIndex') setCurrentIndex
+  @Mutation('setCharacters') setCharacters
+  @Getter('currentIndex') currentIndex
+  @Getter('characters') characters
 
-  result: CharacterData = stubData[0]
+  currenData!: CharacterData
 
-  private buttonClick() {
-    console.log('aa')
+  private buttonClick1(): void {
+    console.log('button1')
   }
 
-  async created() {
-    const result = await stubData[0]
-    console.log(result)
+  private buttonClick2(): void {
+    console.log('button2')
+  }
+
+  created() {
+    this.setCharacters(stubData)
+    this.currenData = this.characters[0]
   }
 }
 </script>

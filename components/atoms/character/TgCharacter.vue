@@ -1,7 +1,7 @@
 <template>
   <div>
     <img
-      src="/image/marimo.png"
+      :src="`/image/character/${name}.png`"
       :width="width"
       :height="height"
       class="isFloat"
@@ -14,11 +14,12 @@ import { Vue, Prop, Component } from 'vue-property-decorator'
 
 @Component
 export default class TgCharacter extends Vue {
-  @Prop({ default: '100px' })
+  @Prop({ default: '300px' })
   width!: string
-
-  @Prop({ default: '100px' })
+  @Prop({ default: '300px' })
   height!: string
+  @Prop({})
+  name!: string
 }
 </script>
 

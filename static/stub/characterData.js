@@ -4,13 +4,15 @@ export default [
     name: 'ただのまりも',
     item: 'まりもの餌',
     image: 'marimo',
+    itemImage: 'marimo_yokan',
     description: 'まりもだよ'
   },
   {
     index: 1,
     name: 'ごりら',
     item: 'ばなな',
-    image: 'gorira',
+    image: 'gorilla',
+    itemImage: 'banana',
     description: 'ウホッ'
   }
 ]
