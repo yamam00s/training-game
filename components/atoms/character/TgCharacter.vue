@@ -1,7 +1,7 @@
 <template>
   <div>
     <img
-      :src="`/image/character/${name}.png`"
+      :src="`/image/characters/${name}.png`"
       :width="width"
       :height="height"
       class="isFloat"
@@ -23,7 +23,7 @@ export default class TgCharacter extends Vue {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .isFloat {
   animation: flot 3s linear infinite;
 }
