@@ -1,11 +1,9 @@
 <template>
   <div class="header">
     <h1>{{ title }}</h1>
-    <tg-button @button-click="$emit('button-click-1', $event)"
-      >button1</tg-button
-    >
+    <tg-button @button-click="$emit('modal-open', $event)">餌をやる</tg-button>
     <tg-button @button-click="$emit('button-click-2', $event)"
-      >button2</tg-button
+      >学習させる</tg-button
     >
   </div>
 </template>

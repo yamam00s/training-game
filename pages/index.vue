@@ -2,7 +2,7 @@
   <div>
     <tg-header
       :title="currenData.name"
-      @button-click-1="buttonClick1"
+      @modal-open="modalOpen"
       @button-click-2="buttonClick2"
     ></tg-header>
     <div class="container">
@@ -13,6 +13,17 @@
         <p>{{ currenData.description }}</p>
       </tg-balloon>
     </div>
+
+    <tg-modal v-show="isModal" @modal-close="modalClose">
+      <template slot="header">
+        <h3>アイテムを選択してください</h3>
+      </template>
+      <template slot="body">
+        <div v-for="character in characters" :key="character.index">
+          <tg-item :name="character.itemImage" :title="character.item" />
+        </div>
+      </template>
+    </tg-modal>
   </div>
 </template>
 
@@ -22,16 +33,20 @@ import { Getter, Mutation } from 'vuex-class'
 import { CharacterData } from '~/types/index'
 import stubData from '~/static/stub/characterData.js'
 import TgCharacter from '~/components/atoms/character/TgCharacter.vue'
+import TgItem from '~/components/atoms/item/TgItem.vue'
 import TgBalloon from '~/components/atoms/balloon/TgBalloon.vue'
 import TgBox from '~/components/atoms/box/TgBox.vue'
 import TgHeader from '~/components/organisms/header/TgHeader.vue'
+import TgModal from '~/components/organisms/modal/TgModal.vue'
 
 @Component({
   components: {
     TgCharacter,
+    TgItem,
     TgBalloon,
     TgBox,
-    TgHeader
+    TgHeader,
+    TgModal
   }
 })
 export default class App extends Vue {
@@ -41,9 +56,14 @@ export default class App extends Vue {
   @Getter('characters') characters
 
   currenData!: CharacterData
+  isModal: boolean = false
 
-  private buttonClick1(): void {
-    console.log('button1')
+  private modalOpen(): void {
+    this.isModal = true
+  }
+
+  private modalClose(): void {
+    this.isModal = false
   }
 
   private buttonClick2(): void {

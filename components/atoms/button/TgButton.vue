@@ -54,6 +54,12 @@ export default class TgButton extends Vue {
   background: $black;
 }
 
+.monoshiro {
+  color: $black;
+  border: 1px solid $black;
+  background: $white;
+}
+
 .small {
   border-radius: 2px;
   font-size: 1.4rem;
