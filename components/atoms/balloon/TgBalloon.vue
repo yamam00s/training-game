@@ -1,6 +1,6 @@
 <template>
-  <div class="balloon">
-    <slot />
+  <div class="balloon" @click="$emit('balloon-click', $event)">
+    <span class="balloon-text"><slot /></span>
   </div>
 </template>
 
@@ -31,6 +31,27 @@ export default class TgBalloon extends Vue {}
     left: 10%;
     border: 15px solid transparent;
     border-bottom: 15px solid $white;
+  }
+}
+.balloon-text {
+  position: relative;
+
+  &:before {
+    content: '';
+    top: 30%;
+    right: -30%;
+    border: 1rem solid transparent;
+    border-top: 1rem solid $white;
+    position: absolute;
+    animation: blink 0.5s ease-in-out infinite alternate;
+  }
+}
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 </style>
