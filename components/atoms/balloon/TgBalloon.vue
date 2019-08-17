@@ -39,7 +39,7 @@ export default class TgBalloon extends Vue {}
   &:before {
     content: '';
     top: 30%;
-    right: -30%;
+    right: -2rem;
     border: 1rem solid transparent;
     border-top: 1rem solid $white;
     position: absolute;
