@@ -20,7 +20,14 @@
       </template>
       <template slot="body">
         <div v-for="character in characters" :key="character.index">
-          <tg-item :name="character.itemImage" :title="character.item" />
+          <tg-radio
+            :value="character.index"
+            :checked="checkedItem"
+            @change="setCheckedItem"
+          >
+            {{ character.item }}
+            <tg-item :name="character.itemImage" />
+          </tg-radio>
         </div>
       </template>
     </tg-modal>
@@ -36,6 +43,7 @@ import TgCharacter from '~/components/atoms/character/TgCharacter.vue'
 import TgItem from '~/components/atoms/item/TgItem.vue'
 import TgBalloon from '~/components/atoms/balloon/TgBalloon.vue'
 import TgBox from '~/components/atoms/box/TgBox.vue'
+import TgRadio from '~/components/atoms/radio/TgRadio.vue'
 import TgHeader from '~/components/organisms/header/TgHeader.vue'
 import TgModal from '~/components/organisms/modal/TgModal.vue'
 
@@ -45,6 +53,7 @@ import TgModal from '~/components/organisms/modal/TgModal.vue'
     TgItem,
     TgBalloon,
     TgBox,
+    TgRadio,
     TgHeader,
     TgModal
   }
@@ -57,6 +66,7 @@ export default class App extends Vue {
 
   currenData!: CharacterData
   isModal: boolean = false
+  checkedItem: string = ''
 
   private modalOpen(): void {
     this.isModal = true
@@ -64,6 +74,10 @@ export default class App extends Vue {
 
   private modalClose(): void {
     this.isModal = false
+  }
+
+  private setCheckedItem(item): void {
+    this.checkedItem = item
   }
 
   private buttonClick2(): void {

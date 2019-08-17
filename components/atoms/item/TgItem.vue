@@ -1,6 +1,5 @@
 <template>
   <div>
-    <p>{{ title }}</p>
     <img :src="`/image/items/${name}.png`" :width="width" :height="height" />
   </div>
 </template>
@@ -16,8 +15,6 @@ export default class TgItem extends Vue {
   height!: string
   @Prop({})
   name!: string
-  @Prop({})
-  title!: string
 }
 </script>
 
