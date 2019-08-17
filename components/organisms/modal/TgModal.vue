@@ -14,8 +14,13 @@
           <div class="modal-footer">
             <tg-button
               color="monoshiro"
-              @button-click="$emit('modal-close', $event)"
+              @button-click="$emit('modal-submit', $event)"
               >OK</tg-button
+            >
+            <tg-button
+              color="monoshiro"
+              @button-click="$emit('modal-close', $event)"
+              >close</tg-button
             >
           </div>
         </div>

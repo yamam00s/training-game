@@ -9,12 +9,16 @@
       <tg-box>
         <tg-character :name="currenData.image" />
       </tg-box>
-      <tg-balloon>
-        <p>{{ currenData.description }}</p>
+      <tg-balloon @balloon-click="balloonClick">
+        {{ currenData.description }}
       </tg-balloon>
     </div>
 
-    <tg-modal v-show="isModal" @modal-close="modalClose">
+    <tg-modal
+      v-show="isModal"
+      @modal-submit="modalSubmit"
+      @modal-close="modalClose"
+    >
       <template slot="header">
         <h3>アイテムを選択してください</h3>
       </template>
@@ -66,7 +70,7 @@ export default class App extends Vue {
 
   currenData!: CharacterData
   isModal: boolean = false
-  checkedItem: string = ''
+  checkedItem: number = 0
 
   private modalOpen(): void {
     this.isModal = true
@@ -76,12 +80,21 @@ export default class App extends Vue {
     this.isModal = false
   }
 
+  private modalSubmit(): void {
+    this.modalClose()
+    this.currenData = this.characters[this.checkedItem]
+  }
+
   private setCheckedItem(item): void {
     this.checkedItem = item
   }
 
+  private balloonClick(): void {
+    console.log('balloonClick')
+  }
+
   private buttonClick2(): void {
-    console.log('button2')
+    console.log('buttonClick2')
   }
 
   created() {
