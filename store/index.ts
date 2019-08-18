@@ -8,10 +8,10 @@ export const state = (): IndexState => ({
   characters: [],
   character: {
     index: 0,
-    name: '',
-    item: '',
-    image: '',
-    itemImage: '',
+    characterName: '',
+    materialName: '',
+    characterImageUrl: '',
+    materialImageUrl: '',
     description: ''
   }
 })

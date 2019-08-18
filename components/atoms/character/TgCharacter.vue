@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img :src="name" :width="width" :height="height" class="isFloat" />
+    <img :src="url" :width="width" :height="height" class="isFloat" />
   </div>
 </template>
 
@@ -14,7 +14,7 @@ export default class TgCharacter extends Vue {
   @Prop({ default: '300px' })
   height!: string
   @Prop({})
-  name!: string
+  url!: string
 }
 </script>
 

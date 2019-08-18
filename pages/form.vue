@@ -4,13 +4,13 @@
       <div class="form-group">
         <label>
           <span class="label">名前</span>
-          <input v-model="name" type="text" class="input" />
+          <input v-model="characterName" type="text" class="input" />
         </label>
       </div>
       <div class="form-group">
         <label>
           <span class="label">アイテム</span>
-          <input v-model="item" type="text" class="input" />
+          <input v-model="materialName" type="text" class="input" />
         </label>
       </div>
       <div class="form-group">
@@ -79,17 +79,16 @@ const uploadStorageUrl = (file: any, path: string): Promise<any> => {
 export default class Form extends Vue {
   @Getter('characters') characters
   @Action('addCharacter') addCharacter
-
   // 画像の型とは
   uploadFile: any | null = null
   uploadFileName: string = ''
   uploadItemFile: any | null = null
   uploadItemFileName: string = ''
 
-  name: string = ''
-  item: string = ''
-  image: string = ''
-  itemImage: string = ''
+  characterName: string = ''
+  materialName: string = ''
+  characterImageUrl: string = ''
+  materialImageUrl: string = ''
   description: string = ''
 
   selectFile(event): void {
@@ -116,15 +115,19 @@ export default class Form extends Vue {
       `/items/${this.uploadItemFileName}`
     )
 
-    this.image = await getStorageUrl(`/characters/${this.uploadFileName}`)
-    this.itemImage = await getStorageUrl(`/items/${this.uploadItemFileName}`)
+    this.characterImageUrl = await getStorageUrl(
+      `/characters/${this.uploadFileName}`
+    )
+    this.materialImageUrl = await getStorageUrl(
+      `/items/${this.uploadItemFileName}`
+    )
 
     const character: CharacterData = {
       index: this.characters.length,
-      name: this.name,
-      item: this.item,
-      image: this.image,
-      itemImage: this.itemImage,
+      characterName: this.characterName,
+      materialName: this.materialName,
+      characterImageUrl: this.characterImageUrl,
+      materialImageUrl: this.materialImageUrl,
       description: this.description
     }
 
