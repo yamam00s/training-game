@@ -1,48 +1,49 @@
 <template>
   <div>
-    <tg-header
-      :title="currenData.name"
-      @modal-open="modalOpen"
-      @button-click-2="buttonClick2"
-    ></tg-header>
-    <div class="container">
-      <tg-box>
-        <tg-character :name="currenData.image" />
-      </tg-box>
-      <tg-balloon @balloon-click="balloonClick">
-        {{ currenData.description }}
-      </tg-balloon>
-    </div>
+    <div v-if="currentData">
+      <tg-header
+        :title="currentData.name"
+        @modal-open="modalOpen"
+        @button-click-2="buttonClick2"
+      ></tg-header>
+      <div class="container">
+        <tg-box>
+          <tg-character :name="currentData.image" />
+        </tg-box>
+        <tg-balloon @balloon-click="balloonClick">
+          {{ currentData.description }}
+        </tg-balloon>
+      </div>
 
-    <tg-modal
-      v-show="isModal"
-      @modal-submit="modalSubmit"
-      @modal-close="modalClose"
-    >
-      <template slot="header">
-        <h3>アイテムを選択してください</h3>
-      </template>
-      <template slot="body">
-        <div v-for="character in characters" :key="character.index">
-          <tg-radio
-            :value="character.index"
-            :checked="checkedItem"
-            @change="setCheckedItem"
-          >
-            {{ character.item }}
-            <tg-item :name="character.itemImage" />
-          </tg-radio>
-        </div>
-      </template>
-    </tg-modal>
+      <tg-modal
+        v-show="isModal"
+        @modal-submit="modalSubmit"
+        @modal-close="modalClose"
+      >
+        <template slot="header">
+          <h3>アイテムを選択してください</h3>
+        </template>
+        <template slot="body">
+          <div v-for="(character, index) in characters" :key="index">
+            <tg-radio
+              :value="character.index"
+              :checked="checkedItem"
+              @change="setCheckedItem"
+            >
+              {{ character.item }}
+              <tg-item :name="character.itemImage" />
+            </tg-radio>
+          </div>
+        </template>
+      </tg-modal>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import { Getter, Mutation } from 'vuex-class'
-import { CharacterData } from '~/types/index'
-import stubData from '~/static/stub/characterData.js'
+import { Getter, Mutation, Action } from 'vuex-class'
+// import { CharacterData } from '~/types/index'
 import TgCharacter from '~/components/atoms/character/TgCharacter.vue'
 import TgItem from '~/components/atoms/item/TgItem.vue'
 import TgBalloon from '~/components/atoms/balloon/TgBalloon.vue'
@@ -63,12 +64,11 @@ import TgModal from '~/components/organisms/modal/TgModal.vue'
   }
 })
 export default class App extends Vue {
-  @Mutation('setCurrentIndex') setCurrentIndex
   @Mutation('setCharacters') setCharacters
-  @Getter('currentIndex') currentIndex
   @Getter('characters') characters
+  @Action('setCharactersRef') setCharactersRef
 
-  currenData!: CharacterData
+  currentIndex: number = 0
   isModal: boolean = false
   checkedItem: number = 0
 
@@ -82,7 +82,7 @@ export default class App extends Vue {
 
   private modalSubmit(): void {
     this.modalClose()
-    this.currenData = this.characters[this.checkedItem]
+    this.currentIndex = this.checkedItem
   }
 
   private setCheckedItem(item): void {
@@ -97,9 +97,12 @@ export default class App extends Vue {
     console.log('buttonClick2')
   }
 
-  created() {
-    this.setCharacters(stubData)
-    this.currenData = this.characters[0]
+  get currentData(): CharacterData {
+    return this.characters[this.currentIndex]
+  }
+
+  async created() {
+    await this.setCharactersRef()
   }
 }
 </script>

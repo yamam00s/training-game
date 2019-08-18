@@ -22,8 +22,8 @@ export default class TgRadio extends Vue {
   @Prop({})
   value!: string
 
-  @Model('change', { type: String })
-  readonly checked!: string
+  @Model('change', { type: Number })
+  readonly checked!: number
 }
 </script>
 
