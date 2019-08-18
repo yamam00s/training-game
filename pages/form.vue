@@ -18,9 +18,9 @@
           <span class="label">画像</span>
           <div class="upload-button">
             Click to upload
-            <input type="file" class="upload" @change="selectFile" />
+            <input type="file" class="upload" @change="setCharacterImage" />
           </div>
-          <p>{{ uploadFileName }}</p>
+          <p>{{ uploadCharacterFileName }}</p>
         </label>
       </div>
       <div class="form-group">
@@ -28,9 +28,9 @@
           <span class="label">アイテム画像</span>
           <div class="upload-button">
             Click to upload
-            <input type="file" class="upload" @change="selectFileItem" />
+            <input type="file" class="upload" @change="setMaterialImage" />
           </div>
-          <p>{{ uploadItemFileName }}</p>
+          <p>{{ uploadMaterialFileName }}</p>
         </label>
       </div>
       <div class="form-group">
@@ -79,47 +79,50 @@ const uploadStorageUrl = (file: any, path: string): Promise<any> => {
 export default class Form extends Vue {
   @Getter('characters') characters
   @Action('addCharacter') addCharacter
-  // 画像の型とは
-  uploadFile: any | null = null
-  uploadFileName: string = ''
-  uploadItemFile: any | null = null
-  uploadItemFileName: string = ''
-
+  // storage upload data
+  uploadCharacterImage: any | null = null
+  uploadCharacterFileName: string = ''
+  uploadMaterialImage: any | null = null
+  uploadMaterialFileName: string = ''
+  // firestore upload data
   characterName: string = ''
   materialName: string = ''
   characterImageUrl: string = ''
   materialImageUrl: string = ''
   description: string = ''
 
-  selectFile(event): void {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private setSelectFile = (event) => {
     event.preventDefault()
     const files = event.target.files
-    this.uploadFile = files[0]
-    this.uploadFileName = this.uploadFile.name
+    return files[0]
   }
 
-  selectFileItem(event): void {
-    event.preventDefault()
-    const files = event.target.files
-    this.uploadItemFile = files[0]
-    this.uploadItemFileName = `/items/${this.uploadFile.name}`
+  private setCharacterImage(event): void {
+    this.uploadCharacterImage = this.setSelectFile(event)
+    this.uploadCharacterFileName = this.uploadCharacterImage.name
+  }
+
+  private setMaterialImage(event): void {
+    this.uploadMaterialImage = this.setSelectFile(event)
+    this.uploadMaterialFileName = this.uploadMaterialImage.name
+  }
+
+  private async imageFileSubmit(uploadFile: any, uploadFileName: string) {
+    await uploadStorageUrl(uploadFile, uploadFileName)
+    const imageUrl = await getStorageUrl(uploadFileName)
+    return imageUrl
   }
 
   private async formSubmit() {
-    await uploadStorageUrl(
-      this.uploadFile,
-      `/characters/${this.uploadFileName}`
-    )
-    await uploadStorageUrl(
-      this.uploadItemFile,
-      `/items/${this.uploadItemFileName}`
+    this.characterImageUrl = await this.imageFileSubmit(
+      this.uploadCharacterImage,
+      `/characters/${this.uploadCharacterFileName}`
     )
 
-    this.characterImageUrl = await getStorageUrl(
-      `/characters/${this.uploadFileName}`
-    )
-    this.materialImageUrl = await getStorageUrl(
-      `/items/${this.uploadItemFileName}`
+    this.materialImageUrl = await this.imageFileSubmit(
+      this.uploadMaterialImage,
+      `/items/${this.uploadMaterialFileName}`
     )
 
     const character: CharacterData = {
