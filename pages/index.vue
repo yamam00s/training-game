@@ -90,7 +90,9 @@ export default class App extends Vue {
   }
 
   get currentData(): CharacterData {
-    return this.characters[this.currentIndex]
+    return this.characters.find(
+      (current) => current.index === this.currentIndex
+    )
   }
 
   async created() {
