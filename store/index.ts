@@ -10,6 +10,7 @@ export const state = (): IndexState => ({
     index: 0,
     name: '',
     item: '',
+    image: '',
     itemImage: '',
     description: ''
   }
