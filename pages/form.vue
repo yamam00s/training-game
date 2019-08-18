@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <tg-loading v-show="isLoading">アップロードしています...</tg-loading>
     <form>
       <div class="form-group">
         <label>
@@ -47,10 +48,11 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import { Getter, Action } from 'vuex-class'
+import { Getter, Mutation, Action } from 'vuex-class'
 import { CharacterData } from '~/types/index'
 import { db, storage } from '~/plugins/firebase'
 import TgButton from '~/components/atoms/button/TgButton.vue'
+import TgLoading from '~/components/atoms/loading/TgLoading.vue'
 
 const storageRef = storage.ref()
 
@@ -73,12 +75,17 @@ const uploadStorageUrl = (file: any, path: string): Promise<any> => {
 
 @Component({
   components: {
-    TgButton
+    TgButton,
+    TgLoading
   }
 })
 export default class Form extends Vue {
   @Getter('characters') characters
+  @Getter('isLoading') isLoading
   @Action('addCharacter') addCharacter
+  @Mutation('startLoading') startLoading
+  @Mutation('endLoading') endLoading
+
   // storage upload data
   uploadCharacterImage: any | null = null
   uploadCharacterFileName: string = ''
@@ -115,6 +122,7 @@ export default class Form extends Vue {
   }
 
   private async formSubmit() {
+    this.startLoading()
     this.characterImageUrl = await this.imageFileSubmit(
       this.uploadCharacterImage,
       `/characters/${this.uploadCharacterFileName}`
@@ -136,6 +144,8 @@ export default class Form extends Vue {
 
     const usersRef = db.collection('characters')
     await usersRef.add(character)
+    alert('アップロードしました！')
+    this.endLoading()
     this.$router.push('/')
   }
 }

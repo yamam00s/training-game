@@ -1,5 +1,5 @@
 export interface IndexState {
-  // isLoading: boolean
+  isLoading: boolean
   characters: CharacterData[]
   character: CharacterData
 }

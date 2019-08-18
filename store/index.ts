@@ -4,7 +4,7 @@ import { db } from '~/plugins/firebase'
 import { IndexState } from '~/types'
 
 export const state = (): IndexState => ({
-  // isLoading: false,
+  isLoading: false,
   characters: [],
   character: {
     index: 0,
@@ -17,17 +17,17 @@ export const state = (): IndexState => ({
 })
 
 export const getters: GetterTree<IndexState, IndexState> = {
-  // isLoading: (state) => state.isLoading,
+  isLoading: (state) => state.isLoading,
   characters: (state) => state.characters
 }
 
 export const mutations: MutationTree<IndexState> = {
-  // startLoading(state: IndexState): void {
-  //   state.isLoading = true
-  // },
-  // endLoading(state: IndexState): void {
-  //   state.isLoading = false
-  // },
+  startLoading(state: IndexState): void {
+    state.isLoading = true
+  },
+  endLoading(state: IndexState): void {
+    state.isLoading = false
+  },
   setCharacters(state: IndexState, characters: []): void {
     state.characters = characters
   },
