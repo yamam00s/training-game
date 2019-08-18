@@ -1,11 +1,6 @@
 <template>
   <div>
-    <img
-      :src="`/image/characters/${name}.png`"
-      :width="width"
-      :height="height"
-      class="isFloat"
-    />
+    <img :src="name" :width="width" :height="height" class="isFloat" />
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img :src="`/image/items/${name}.png`" :width="width" :height="height" />
+    <img :src="name" :width="width" :height="height" />
   </div>
 </template>
 
