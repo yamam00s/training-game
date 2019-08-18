@@ -1,6 +1,6 @@
 import { MutationTree, GetterTree, ActionTree } from 'vuex'
 import { firestoreAction, vuexfireMutations } from 'vuexfire'
-import db from '~/plugins/firebase'
+import { db } from '~/plugins/firebase'
 import { IndexState } from '~/types'
 
 export const state = (): IndexState => ({
