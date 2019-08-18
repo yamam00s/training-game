@@ -17,8 +17,7 @@ export const state = (): IndexState => ({
 
 export const getters: GetterTree<IndexState, IndexState> = {
   // isLoading: (state) => state.isLoading,
-  characters: (state) => state.characters,
-  character: (state, index) => state.characters[index]
+  characters: (state) => state.characters
 }
 
 export const mutations: MutationTree<IndexState> = {
