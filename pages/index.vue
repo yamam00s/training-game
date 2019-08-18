@@ -39,7 +39,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import { Getter, Mutation, Action } from 'vuex-class'
-// import { CharacterData } from '~/types/index'
+import { CharacterData } from '~/types/index'
 import TgCharacter from '~/components/atoms/character/TgCharacter.vue'
 import TgItem from '~/components/atoms/item/TgItem.vue'
 import TgBalloon from '~/components/atoms/balloon/TgBalloon.vue'
