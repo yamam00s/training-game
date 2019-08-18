@@ -116,7 +116,7 @@ export default class Form extends Vue {
       `/items/${this.uploadItemFileName}`
     )
 
-    this.image = await getStorageUrl(`/characters/${this.uploadItemFileName}`)
+    this.image = await getStorageUrl(`/characters/${this.uploadFileName}`)
     this.itemImage = await getStorageUrl(`/items/${this.uploadItemFileName}`)
 
     const character: CharacterData = {
