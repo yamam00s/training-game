@@ -1,11 +1,7 @@
 <template>
   <div>
     <div v-if="currentData">
-      <tg-header
-        :title="currentData.name"
-        @modal-open="modalOpen"
-        @button-click-2="buttonClick2"
-      ></tg-header>
+      <tg-header :title="currentData.name" @modal-open="modalOpen"></tg-header>
       <div class="container">
         <tg-box>
           <tg-character :name="currentData.image" />
@@ -91,10 +87,6 @@ export default class App extends Vue {
 
   private balloonClick(): void {
     console.log('balloonClick')
-  }
-
-  private buttonClick2(): void {
-    console.log('buttonClick2')
   }
 
   get currentData(): CharacterData {

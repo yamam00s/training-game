@@ -4,6 +4,7 @@
     :type="nativeType"
     class="button"
     :class="(size, color)"
+    v-bind="$attrs"
     @click="$emit('button-click', $event)"
   >
     <slot />

@@ -2,9 +2,7 @@
   <div class="header">
     <h1>{{ title }}</h1>
     <tg-button @button-click="$emit('modal-open', $event)">餌をやる</tg-button>
-    <tg-button @button-click="$emit('button-click-2', $event)"
-      >学習させる</tg-button
-    >
+    <tg-button tag="nuxt-link" to="/form">学習させる</tg-button>
   </div>
 </template>
 
@@ -34,7 +32,7 @@ export default class TgHeader extends Vue {
     margin-right: auto;
   }
 
-  button {
+  a {
     margin-left: 5px;
   }
 }
