@@ -1,10 +1,13 @@
 <template>
   <div>
     <div v-if="currentData">
-      <tg-header :title="currentData.name" @modal-open="modalOpen"></tg-header>
+      <tg-header
+        :title="currentData.characterName"
+        @modal-open="modalOpen"
+      ></tg-header>
       <div class="container">
         <tg-box>
-          <tg-character :name="currentData.image" />
+          <tg-character :url="currentData.characterImageUrl" />
         </tg-box>
         <tg-balloon @balloon-click="balloonClick">
           {{ currentData.description }}
@@ -26,8 +29,8 @@
               :checked="checkedItem"
               @change="setCheckedItem"
             >
-              {{ character.item }}
-              <tg-item :name="character.itemImage" />
+              {{ character.materialName }}
+              <tg-item :url="character.materialImageUrl" />
             </tg-radio>
           </div>
         </template>
