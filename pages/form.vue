@@ -41,7 +41,10 @@
         </label>
       </div>
 
-      <tg-button @button-click="formSubmit">登録</tg-button>
+      <div class="form-buttons">
+        <tg-button @button-click="formSubmit">登録</tg-button>
+        <tg-button tag="nuxt-link" to="/">TOPへ戻る</tg-button>
+      </div>
     </form>
   </div>
 </template>
@@ -216,5 +219,21 @@ export default class Form extends Vue {
   outline: none;
   cursor: pointer;
   z-index: -1;
+}
+
+.form-buttons {
+  width: 100%;
+  height: 100%;
+  padding: 10px 0;
+  display: flex;
+  justify-content: flex-end;
+
+  h1 {
+    margin-right: auto;
+  }
+
+  a {
+    margin-left: 5px;
+  }
 }
 </style>
