@@ -23,7 +23,11 @@
           <h3>アイテムを選択してください</h3>
         </template>
         <template slot="body">
-          <div v-for="(character, index) in characters" :key="index">
+          <div
+            v-for="(character, index) in characters"
+            :key="index"
+            class="modal-contents"
+          >
             <tg-radio
               :value="character.index"
               :checked="checkedItem"
@@ -110,6 +114,10 @@ export default class App extends Vue {
   height: 400px;
   @include flexCenter;
   flex-wrap: wrap;
+  text-align: center;
+}
+
+.modal-contents {
   text-align: center;
 }
 </style>

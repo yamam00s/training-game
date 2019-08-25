@@ -74,7 +74,12 @@ export default class TgModal extends Vue {}
 .modal-body {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
   margin: 20px 0;
+}
+
+.modal-footer {
+  text-align: right;
 }
 
 .modal-enter {
