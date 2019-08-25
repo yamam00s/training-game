@@ -2,6 +2,8 @@
   <input
     v-if="type !== 'textarea'"
     class="input"
+    :type="type"
+    :name="name"
     :placeholder="placeholder"
     :value="value"
     v-bind="$attrs"
@@ -24,6 +26,8 @@ import { Vue, Prop, Component } from 'vue-property-decorator'
 export default class TgButton extends Vue {
   @Prop({ default: 'input' })
   type!: string
+  @Prop({})
+  name!: string
   @Prop({})
   placeholder!: string
   @Prop({})
