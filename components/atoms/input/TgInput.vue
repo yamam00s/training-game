@@ -23,7 +23,7 @@
 import { Vue, Prop, Component } from 'vue-property-decorator'
 
 @Component
-export default class TgButton extends Vue {
+export default class TgInput extends Vue {
   @Prop({ default: 'input' })
   type!: string
   @Prop({})
