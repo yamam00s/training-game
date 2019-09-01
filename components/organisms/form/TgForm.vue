@@ -88,14 +88,14 @@ import TgField from '~/components/molecules/field/TgField.vue'
 })
 export default class TgForm extends Vue {
   @Prop({})
-  uploadCharacterFileName!: string
+  uploadCharacterFileName: string = ''
   @Prop({})
-  uploadMaterialFileName!: string
+  uploadMaterialFileName: string = ''
 
   characterName: string = ''
   materialName: string = ''
-  characterImage!: File
-  materialImage!: File
+  characterImage: File | null = null
+  materialImage: File | null = null
   description: string = ''
 
   private formSubmit() {
@@ -106,7 +106,8 @@ export default class TgForm extends Vue {
       materialImage: this.materialImage,
       description: this.description
     }
-    return formValue
+
+    this.$emit('formSubmit', formValue)
   }
 }
 </script>

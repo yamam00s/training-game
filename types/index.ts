@@ -15,7 +15,7 @@ export interface CharacterData {
 export interface FormData {
   characterName: string
   materialName: string
-  characterImage: File
-  materialImage: File
+  characterImage: File | null
+  materialImage: File | null
   description: string
 }
