@@ -28,10 +28,11 @@
           <div class="upload-file-button">
             Click to upload
             <tg-input
-              v-model="characterImage"
+              :value="characterImage"
               type="file"
               name="characterImage"
               placeholder="キャラクター画像"
+              @change="setCharacterImage"
             ></tg-input>
           </div>
         </tg-field>
@@ -43,10 +44,11 @@
           <div class="upload-file-button">
             Click to upload
             <tg-input
-              v-model="materialImage"
+              :value="materialImage"
               type="file"
               name="materialImage"
               placeholder="素材画像"
+              @change="setMaterialImage"
             ></tg-input>
           </div>
           <p>{{ uploadMaterialFileName }}</p>
@@ -98,6 +100,16 @@ export default class TgForm extends Vue {
   materialImage: File | null = null
   description: string = ''
 
+  private setCharacterImage(event): void {
+    this.characterImage = event.target.value
+    this.$emit('set-character-image', event)
+  }
+
+  private setMaterialImage(event): void {
+    this.materialImage = event.target.value
+    this.$emit('set-material-image', event)
+  }
+
   private formSubmit() {
     const formValue: FormData = {
       characterName: this.characterName,
@@ -107,7 +119,7 @@ export default class TgForm extends Vue {
       description: this.description
     }
 
-    this.$emit('formSubmit', formValue)
+    this.$emit('form-submit', formValue)
   }
 }
 </script>
