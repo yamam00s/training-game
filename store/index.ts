@@ -5,15 +5,7 @@ import { IndexState } from '~/types'
 
 export const state = (): IndexState => ({
   isLoading: false,
-  characters: [],
-  character: {
-    index: 0,
-    characterName: '',
-    materialName: '',
-    characterImageUrl: '',
-    materialImageUrl: '',
-    description: ''
-  }
+  characters: []
 })
 
 export const getters: GetterTree<IndexState, IndexState> = {
