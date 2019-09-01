@@ -74,6 +74,7 @@
 
 <script lang="ts">
 import { Vue, Prop, Component } from 'vue-property-decorator'
+import { FormData } from '~/types'
 import TgInput from '~/components/atoms/input/TgInput.vue'
 import TgButton from '~/components/atoms/button/TgButton.vue'
 import TgField from '~/components/molecules/field/TgField.vue'
@@ -98,7 +99,7 @@ export default class TgForm extends Vue {
   description: string = ''
 
   private formSubmit() {
-    const formValue = {
+    const formValue: FormData = {
       characterName: this.characterName,
       materialName: this.materialName,
       characterImage: this.characterImage,
