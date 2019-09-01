@@ -1,61 +1,23 @@
 <template>
   <div class="container">
     <tg-loading v-show="isLoading">アップロードしています...</tg-loading>
-    <form>
-      <div class="form-group">
-        <label>
-          <span class="label">名前</span>
-          <input v-model="characterName" type="text" class="input" />
-        </label>
-      </div>
-      <div class="form-group">
-        <label>
-          <span class="label">アイテム</span>
-          <input v-model="materialName" type="text" class="input" />
-        </label>
-      </div>
-      <div class="form-group">
-        <label>
-          <span class="label">画像</span>
-          <div class="upload-button">
-            Click to upload
-            <input type="file" class="upload" @change="setCharacterImage" />
-          </div>
-          <p>{{ uploadCharacterFileName }}</p>
-        </label>
-      </div>
-      <div class="form-group">
-        <label>
-          <span class="label">アイテム画像</span>
-          <div class="upload-button">
-            Click to upload
-            <input type="file" class="upload" @change="setMaterialImage" />
-          </div>
-          <p>{{ uploadMaterialFileName }}</p>
-        </label>
-      </div>
-      <div class="form-group">
-        <label>
-          <span class="label">詳細</span>
-          <input v-model="description" type="text" class="input" />
-        </label>
-      </div>
-
-      <div class="form-buttons">
-        <tg-button @button-click="formSubmit">登録</tg-button>
-        <tg-button tag="nuxt-link" to="/">TOPへ戻る</tg-button>
-      </div>
-    </form>
+    <tg-form
+      :upload-character-file-name="uploadCharacterFileName"
+      :upload-material-file-name="uploadMaterialFileName"
+      @set-character-image="setCharacterImage"
+      @set-material-image="setMaterialImage"
+      @form-submit="formSubmit"
+    ></tg-form>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import { Getter, Mutation, Action } from 'vuex-class'
+import { Getter, Mutation } from 'vuex-class'
 import { CharacterData } from '~/types/index'
 import { db, storage } from '~/plugins/firebase'
-import TgButton from '~/components/atoms/button/TgButton.vue'
 import TgLoading from '~/components/atoms/loading/TgLoading.vue'
+import TgForm from '~/components/organisms/form/TgForm.vue'
 
 const storageRef = storage.ref()
 
@@ -78,30 +40,22 @@ const uploadStorageUrl = (file: any, path: string): Promise<any> => {
 
 @Component({
   components: {
-    TgButton,
-    TgLoading
+    TgLoading,
+    TgForm
   }
 })
-export default class Form extends Vue {
+export default class Form2 extends Vue {
   @Getter('characters') characters
   @Getter('isLoading') isLoading
-  @Action('addCharacter') addCharacter
   @Mutation('startLoading') startLoading
   @Mutation('endLoading') endLoading
 
   // storage upload data
-  uploadCharacterImage: any | null = null
+  uploadCharacterImage!: File
+  uploadMaterialImage!: File
   uploadCharacterFileName: string = ''
-  uploadMaterialImage: any | null = null
   uploadMaterialFileName: string = ''
-  // firestore upload data
-  characterName: string = ''
-  materialName: string = ''
-  characterImageUrl: string = ''
-  materialImageUrl: string = ''
-  description: string = ''
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private setSelectFile = (event) => {
     event.preventDefault()
     const files = event.target.files
@@ -124,31 +78,31 @@ export default class Form extends Vue {
     return imageUrl
   }
 
-  private async formSubmit() {
+  private async formSubmit(formValue) {
     this.startLoading()
-    this.characterImageUrl = await this.imageFileSubmit(
+    const characterImageUrl = await this.imageFileSubmit(
       this.uploadCharacterImage,
       `/characters/${this.uploadCharacterFileName}`
     )
-
-    this.materialImageUrl = await this.imageFileSubmit(
+    const materialImageUrl = await this.imageFileSubmit(
       this.uploadMaterialImage,
       `/items/${this.uploadMaterialFileName}`
     )
 
     const character: CharacterData = {
       index: this.characters.length,
-      characterName: this.characterName,
-      materialName: this.materialName,
-      characterImageUrl: this.characterImageUrl,
-      materialImageUrl: this.materialImageUrl,
-      description: this.description
+      characterName: formValue.characterName,
+      materialName: formValue.materialName,
+      characterImageUrl,
+      materialImageUrl,
+      description: formValue.description
     }
 
     const usersRef = db.collection('characters')
     await usersRef.add(character)
     alert('アップロードしました！')
     this.endLoading()
+    // TOPへ戻る
     this.$router.push('/')
   }
 }
@@ -160,80 +114,5 @@ export default class Form extends Vue {
   height: 400px;
   flex-wrap: wrap;
   text-align: left;
-}
-
-.form-group {
-  margin-bottom: 20px;
-
-  &:last-of-type {
-    margin-bottom: 40px;
-  }
-  .input {
-    width: 100%;
-    font-size: 1.6rem;
-    height: 3.2rem;
-    padding: calc(0.375em - 1px) calc(0.625em - 1px);
-    border: 1px solid transparent;
-    border-radius: 4px;
-    line-height: 1.6;
-  }
-
-  .label {
-    display: block;
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 0.5em;
-  }
-}
-
-.upload-button {
-  display: inline-block;
-  position: relative;
-  width: 100%;
-  height: 100%;
-  line-height: 1.5;
-  padding: calc(0.375em - 1px) 0.75em;
-  text-align: center;
-  border: 1px solid;
-  border-radius: 4px;
-  box-shadow: none;
-  font-size: 1.6rem;
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.3;
-  }
-
-  &:active {
-    opacity: 1;
-  }
-}
-
-.upload {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  outline: none;
-  cursor: pointer;
-  z-index: -1;
-}
-
-.form-buttons {
-  width: 100%;
-  height: 100%;
-  padding: 10px 0;
-  display: flex;
-  justify-content: flex-end;
-
-  h1 {
-    margin-right: auto;
-  }
-
-  a {
-    margin-left: 5px;
-  }
 }
 </style>
