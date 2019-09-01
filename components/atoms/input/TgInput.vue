@@ -1,18 +1,28 @@
 <template>
   <input
-    v-if="type !== 'textarea'"
-    :class="type !== 'file' ? 'input' : 'upload'"
+    v-if="type === 'file'"
+    class="upload"
     :type="type"
     :name="name"
+    :value="value"
+    v-bind="$attrs"
+    @change="$emit('change', $event)"
+  />
+
+  <textarea
+    v-else-if="type === 'textarea'"
+    class="textarea"
     :placeholder="placeholder"
     :value="value"
     v-bind="$attrs"
     @input="$emit('input', $event.target.value)"
   />
 
-  <textarea
+  <input
     v-else
-    class="textarea"
+    class="input"
+    :type="type"
+    :name="name"
     :placeholder="placeholder"
     :value="value"
     v-bind="$attrs"
