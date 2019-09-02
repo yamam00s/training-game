@@ -2,8 +2,6 @@
 
 > My grand Nuxt.js project
 
-https://training-game-12576.web.app/
-
 ## Build Setup
 
 ``` bash
